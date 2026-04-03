@@ -495,15 +495,30 @@ function renderAuftraege() {
 }
 
 // ── RENDER AUSLASTUNG ──
+function expandAuftraege(list) {
+  // OK+UK counts as 2 separate entries
+  const expanded = [];
+  list.forEach(a => {
+    if(a.kiefer === 'OK + UK') {
+      expanded.push({...a, kiefer: 'OK', _expanded: true});
+      expanded.push({...a, kiefer: 'UK', _expanded: true});
+    } else {
+      expanded.push(a);
+    }
+  });
+  return expanded;
+}
+
 function renderAuslastung() {
   const aktiv = auftraege.filter(a => !a.abgeschlossen);
-  document.getElementById('statTotal').textContent = aktiv.length;
+  const expanded = expandAuftraege(aktiv);
+  document.getElementById('statTotal').textContent = expanded.length;
   document.getElementById('statAbgeschlossen').textContent = auftraege.filter(a=>a.abgeschlossen).length;
-  const krit = aktiv.filter(a => { const d = daysUntil(a.mogu||a.lieferung); return d!==null && d<=3; });
+  const krit = expanded.filter(a => { const d = daysUntil(a.mogu||a.lieferung); return d!==null && d<=3; });
   document.getElementById('statKritisch').textContent = krit.length;
-  const thisWeek = aktiv.filter(a => { const d = daysUntil(a.lieferung); return d!==null && d>=0 && d<=7; });
+  const thisWeek = expanded.filter(a => { const d = daysUntil(a.lieferung); return d!==null && d>=0 && d<=7; });
   document.getElementById('statDieseWoche').textContent = thisWeek.length;
-  renderTag(aktiv);
+  renderTag(expanded);
 }
 
 function renderTag(aktiv) {
@@ -556,7 +571,7 @@ function renderTag(aktiv) {
           const fieldColor = j._field === 'mogu' ? 'var(--warn)' : j._field === 'lieferung' ? 'var(--accent)' : 'var(--success)';
           return `<div style="background:var(--surface2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
-              <div style="font-size:13px;font-weight:600;">${esc(j.auftragsnr||j.patient||j.kunde)}</div>
+              <div style="font-size:13px;font-weight:600;">${esc(j.auftragsnr||j.patient||j.kunde)}${j.kiefer ? ' <span style="font-size:11px;color:var(--text2);">· '+esc(j.kiefer)+'</span>' : ''}</div>
               <div style="font-size:11px;color:var(--text2);">${esc(j.kunde)}${j.indikation?' · '+esc(j.indikation):''}</div>
             </div>
             <span style="font-size:11px;font-weight:600;color:${fieldColor};background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">${fieldLabel}</span>
