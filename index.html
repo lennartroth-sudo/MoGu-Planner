@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
 <meta charset="UTF-8">
@@ -26,225 +27,227 @@
     --radius-sm: 8px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100dvh;
-    overflow-x: hidden;
-  }
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–bg);
+color: var(–text);
+min-height: 100dvh;
+overflow-x: hidden;
+}
 
-  /* ── NAV ── */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(15,17,23,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 20px 10px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo {
-    font-size: 18px; font-weight: 700; letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--accent), #a78bfa);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .nav-logo span { font-weight: 300; }
+/* ── NAV ── */
+.nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+background: rgba(15,17,23,0.85);
+backdrop-filter: blur(20px);
+border-bottom: 1px solid var(–border);
+padding: 14px 20px 10px;
+display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+font-size: 18px; font-weight: 700; letter-spacing: -0.5px;
+background: linear-gradient(135deg, var(–accent), #a78bfa);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-logo span { font-weight: 300; }
 
-  /* ── TABS ── */
-  .tabs {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(15,17,23,0.92);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border);
-    display: flex;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .tab {
-    flex: 1; display: flex; flex-direction: column; align-items: center;
-    padding: 10px 0 8px; gap: 3px;
-    background: none; border: none; color: var(--text3);
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
-    cursor: pointer; transition: color 0.2s;
-  }
-  .tab.active { color: var(--accent); }
-  .tab svg { width: 22px; height: 22px; }
+/* ── TABS ── */
+.tabs {
+position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+background: rgba(15,17,23,0.92);
+backdrop-filter: blur(20px);
+border-top: 1px solid var(–border);
+display: flex;
+padding-bottom: env(safe-area-inset-bottom);
+}
+.tab {
+flex: 1; display: flex; flex-direction: column; align-items: center;
+padding: 10px 0 8px; gap: 3px;
+background: none; border: none; color: var(–text3);
+font-family: ‘DM Sans’, sans-serif; font-size: 11px; font-weight: 500;
+cursor: pointer; transition: color 0.2s;
+}
+.tab.active { color: var(–accent); }
+.tab svg { width: 22px; height: 22px; }
 
-  /* ── PAGES ── */
-  .page { display: none; padding: 80px 16px 90px; min-height: 100dvh; }
-  .page.active { display: block; }
+/* ── PAGES ── */
+.page { display: none; padding: 80px 16px 90px; min-height: 100dvh; }
+.page.active { display: block; }
 
-  /* ── SECTION HEADER ── */
-  .section-head {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-  .section-sub { font-size: 13px; color: var(--text2); margin-top: 2px; }
+/* ── SECTION HEADER ── */
+.section-head {
+display: flex; align-items: center; justify-content: space-between;
+margin-bottom: 16px;
+}
+.section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+.section-sub { font-size: 13px; color: var(–text2); margin-top: 2px; }
 
-  /* ── BUTTON ── */
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 10px 18px; border-radius: 50px; border: none; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
-    transition: all 0.15s; user-select: none;
-  }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:active { transform: scale(0.96); background: #3a7af0; }
-  .btn-ghost { background: var(--surface2); color: var(--text2); }
-  .btn-ghost:active { transform: scale(0.96); }
-  .btn-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
-  .btn-sm { padding: 7px 14px; font-size: 13px; }
-  .btn-full { width: 100%; justify-content: center; padding: 14px; border-radius: var(--radius); }
+/* ── BUTTON ── */
+.btn {
+display: inline-flex; align-items: center; gap: 6px;
+padding: 10px 18px; border-radius: 50px; border: none; cursor: pointer;
+font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 600;
+transition: all 0.15s; user-select: none;
+}
+.btn-primary { background: var(–accent); color: #fff; }
+.btn-primary:active { transform: scale(0.96); background: #3a7af0; }
+.btn-ghost { background: var(–surface2); color: var(–text2); }
+.btn-ghost:active { transform: scale(0.96); }
+.btn-danger { background: rgba(239,68,68,0.15); color: var(–danger); }
+.btn-sm { padding: 7px 14px; font-size: 13px; }
+.btn-full { width: 100%; justify-content: center; padding: 14px; border-radius: var(–radius); }
 
-  /* ── FORM ── */
-  .form-group { margin-bottom: 14px; }
-  .form-label {
-    display: block; font-size: 12px; font-weight: 600; color: var(--text2);
-    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
-  }
-  .form-input {
-    width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm); padding: 12px 14px;
-    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px;
-    outline: none; transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .form-input:focus { border-color: var(--accent); }
-  .form-input::placeholder { color: var(--text3); }
-  select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b91b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+/* ── FORM ── */
+.form-group { margin-bottom: 14px; }
+.form-label {
+display: block; font-size: 12px; font-weight: 600; color: var(–text2);
+text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
+}
+.form-input {
+width: 100%; background: var(–surface2); border: 1.5px solid var(–border);
+border-radius: var(–radius-sm); padding: 12px 14px;
+color: var(–text); font-family: ‘DM Sans’, sans-serif; font-size: 15px;
+outline: none; transition: border-color 0.2s;
+-webkit-appearance: none;
+}
+.form-input:focus { border-color: var(–accent); }
+.form-input::placeholder { color: var(–text3); }
+select.form-input { background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%238b91b0’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-  /* ── CARD ── */
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
-    position: relative; overflow: hidden;
-  }
-  .card::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  }
-  .card.status-ok::before { background: var(--success); }
-  .card.status-warn::before { background: var(--warn); }
-  .card.status-danger::before { background: var(--danger); }
-  .card.status-neutral::before { background: var(--text3); }
+/* ── CARD ── */
+.card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 16px; margin-bottom: 12px;
+position: relative; overflow: hidden;
+}
+.card::before {
+content: ‘’; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.card.status-ok::before { background: var(–success); }
+.card.status-warn::before { background: var(–warn); }
+.card.status-danger::before { background: var(–danger); }
+.card.status-neutral::before { background: var(–text3); }
 
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-  .card-title { font-size: 15px; font-weight: 600; }
-  .card-sub { font-size: 13px; color: var(--text2); margin-top: 2px; }
+.card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.card-title { font-size: 15px; font-weight: 600; }
+.card-sub { font-size: 13px; color: var(–text2); margin-top: 2px; }
 
-  .badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 600;
-  }
-  .badge-ok { background: rgba(34,197,94,0.15); color: var(--success); }
-  .badge-warn { background: rgba(245,158,11,0.15); color: var(--warn); }
-  .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
-  .badge-neutral { background: var(--surface3); color: var(--text2); }
-  .badge-blue { background: rgba(79,142,247,0.15); color: var(--accent); }
+.badge {
+display: inline-flex; align-items: center; gap: 4px;
+padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 600;
+}
+.badge-ok { background: rgba(34,197,94,0.15); color: var(–success); }
+.badge-warn { background: rgba(245,158,11,0.15); color: var(–warn); }
+.badge-danger { background: rgba(239,68,68,0.15); color: var(–danger); }
+.badge-neutral { background: var(–surface3); color: var(–text2); }
+.badge-blue { background: rgba(79,142,247,0.15); color: var(–accent); }
 
-  .card-dates {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px; margin-top: 10px;
-  }
-  .date-item { background: var(--surface2); border-radius: var(--radius-sm); padding: 8px 10px; }
-  .date-label { font-size: 10px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-  .date-val { font-size: 13px; font-weight: 600; font-family: 'DM Mono', monospace; }
+.card-dates {
+display: grid; grid-template-columns: 1fr 1fr 1fr;
+gap: 8px; margin-top: 10px;
+}
+.date-item { background: var(–surface2); border-radius: var(–radius-sm); padding: 8px 10px; }
+.date-label { font-size: 10px; color: var(–text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+.date-val { font-size: 13px; font-weight: 600; font-family: ‘DM Mono’, monospace; }
 
-  .card-actions { display: flex; gap: 8px; margin-top: 12px; }
+.card-actions { display: flex; gap: 8px; margin-top: 12px; }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-    align-items: flex-end;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface); border-radius: 20px 20px 0 0;
-    width: 100%; max-height: 92dvh; overflow-y: auto;
-    padding: 24px 20px 40px;
-    animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1);
-  }
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 36px; height: 4px; background: var(--surface3);
-    border-radius: 2px; margin: 0 auto 20px;
-  }
-  .modal-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+/* ── MODAL ── */
+.modal-overlay {
+display: none; position: fixed; inset: 0; z-index: 200;
+background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+align-items: flex-end;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+background: var(–surface); border-radius: 20px 20px 0 0;
+width: 100%; max-height: 92dvh; overflow-y: auto;
+padding: 24px 20px 40px;
+animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1);
+}
+@keyframes slideUp {
+from { transform: translateY(100%); }
+to { transform: translateY(0); }
+}
+.modal-handle {
+width: 36px; height: 4px; background: var(–surface3);
+border-radius: 2px; margin: 0 auto 20px;
+}
+.modal-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
 
-  /* ── AUSLASTUNG ── */
-  .week-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; margin-bottom: 10px;
-  }
-  .week-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .week-label { font-size: 14px; font-weight: 600; }
-  .week-count { font-size: 13px; color: var(--text2); }
-  .progress-bar {
-    height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; margin-bottom: 10px;
-  }
-  .progress-fill {
-    height: 100%; border-radius: 3px;
-    background: linear-gradient(90deg, var(--accent), #a78bfa);
-    transition: width 0.4s ease;
-  }
-  .progress-fill.busy { background: linear-gradient(90deg, var(--warn), var(--danger)); }
-  .week-jobs { display: flex; flex-wrap: wrap; gap: 6px; }
-  .week-job-chip {
-    background: var(--surface2); border-radius: 6px;
-    padding: 4px 10px; font-size: 12px; color: var(--text2);
-  }
+/* ── AUSLASTUNG ── */
+.week-card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 16px; margin-bottom: 10px;
+}
+.week-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.week-label { font-size: 14px; font-weight: 600; }
+.week-count { font-size: 13px; color: var(–text2); }
+.progress-bar {
+height: 6px; background: var(–surface3); border-radius: 3px; overflow: hidden; margin-bottom: 10px;
+}
+.progress-fill {
+height: 100%; border-radius: 3px;
+background: linear-gradient(90deg, var(–accent), #a78bfa);
+transition: width 0.4s ease;
+}
+.progress-fill.busy { background: linear-gradient(90deg, var(–warn), var(–danger)); }
+.week-jobs { display: flex; flex-wrap: wrap; gap: 6px; }
+.week-job-chip {
+background: var(–surface2); border-radius: 6px;
+padding: 4px 10px; font-size: 12px; color: var(–text2);
+}
 
-  /* ── STATS ── */
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px;
-  }
-  .stat-val { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
-  .stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.stat-card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 16px;
+}
+.stat-val { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
+.stat-label { font-size: 12px; color: var(–text2); margin-top: 2px; }
 
-  /* ── EMPTY STATE ── */
-  .empty {
-    text-align: center; padding: 60px 20px;
-    color: var(--text3);
-  }
-  .empty-icon { font-size: 48px; margin-bottom: 12px; }
-  .empty-text { font-size: 15px; line-height: 1.5; }
+/* ── EMPTY STATE ── */
+.empty {
+text-align: center; padding: 60px 20px;
+color: var(–text3);
+}
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-text { font-size: 15px; line-height: 1.5; }
 
-  /* ── FAB ── */
-  .fab {
-    position: fixed; right: 20px; bottom: 80px; z-index: 90;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), #7c3aed);
-    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 20px rgba(79,142,247,0.4);
-    transition: transform 0.15s;
-  }
-  .fab:active { transform: scale(0.92); }
-  .fab svg { width: 24px; height: 24px; color: white; }
+/* ── FAB ── */
+.fab {
+position: fixed; right: 20px; bottom: 80px; z-index: 90;
+width: 56px; height: 56px; border-radius: 50%;
+background: linear-gradient(135deg, var(–accent), #7c3aed);
+border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+box-shadow: 0 4px 20px rgba(79,142,247,0.4);
+transition: transform 0.15s;
+}
+.fab:active { transform: scale(0.92); }
+.fab svg { width: 24px; height: 24px; color: white; }
 
-  /* ── FILTER ROW ── */
-  .filter-row { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 2px; }
-  .filter-row::-webkit-scrollbar { display: none; }
-  .filter-chip {
-    flex-shrink: 0; padding: 6px 14px; border-radius: 50px;
-    background: var(--surface2); border: 1.5px solid var(--border);
-    color: var(--text2); font-size: 13px; font-weight: 500;
-    cursor: pointer; transition: all 0.15s; white-space: nowrap;
-  }
-  .filter-chip.active { background: rgba(79,142,247,0.15); border-color: var(--accent); color: var(--accent); }
+/* ── FILTER ROW ── */
+.filter-row { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 2px; }
+.filter-row::-webkit-scrollbar { display: none; }
+.filter-chip {
+flex-shrink: 0; padding: 6px 14px; border-radius: 50px;
+background: var(–surface2); border: 1.5px solid var(–border);
+color: var(–text2); font-size: 13px; font-weight: 500;
+cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.filter-chip.active { background: rgba(79,142,247,0.15); border-color: var(–accent); color: var(–accent); }
 
-  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+.divider { height: 1px; background: var(–border); margin: 16px 0; }
 </style>
+
 </head>
 <body>
 
 <!-- NAV -->
+
 <div class="nav">
   <div>
     <div class="nav-logo">Mo<span>Gu</span> Planner</div>
@@ -255,6 +258,7 @@
 <!-- PAGES -->
 
 <!-- ① AUFTRÄGE -->
+
 <div class="page active" id="page-auftraege">
   <div class="section-head">
     <div>
@@ -273,6 +277,7 @@
 </div>
 
 <!-- ② AUSLASTUNG -->
+
 <div class="page" id="page-auslastung">
   <div class="section-head">
     <div>
@@ -302,6 +307,7 @@
 </div>
 
 <!-- ③ NEU / EDIT (hidden, used as form page) -->
+
 <div class="page" id="page-neu">
   <div class="section-head">
     <div><div class="section-title" id="formTitle">Neuer Auftrag</div></div>
@@ -322,7 +328,12 @@
   </div>
   <div class="form-group">
     <label class="form-label">Indikation</label>
-    <input class="form-input" id="f-indikation" placeholder="z.B. Modellgussprothese UK" />
+    <select class="form-input" id="f-indikation">
+      <option value="">— auswählen —</option>
+      <option>Geschiebe MoGu</option>
+      <option>Klammer MoGu</option>
+      <option>Teleskoparbeit</option>
+    </select>
   </div>
   <div class="form-group">
     <label class="form-label">Kiefer</label>
@@ -334,10 +345,6 @@
     </select>
   </div>
   <div class="divider"></div>
-  <div class="form-group">
-    <label class="form-label">Design-Datum</label>
-    <input class="form-input" type="date" id="f-design" />
-  </div>
   <div class="form-group">
     <label class="form-label">Lieferdatum</label>
     <input class="form-input" type="date" id="f-lieferung" />
@@ -360,6 +367,7 @@
 </div>
 
 <!-- TABS -->
+
 <div class="tabs">
   <button class="tab active" id="tab-auftraege" onclick="showPage('auftraege')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -373,6 +381,21 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
     Neu
   </button>
+  <button class="tab" id="tab-statistiken" onclick="showPage('statistiken')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Statistik
+  </button>
+</div>
+
+<!-- ④ STATISTIKEN -->
+
+<div class="page" id="page-statistiken">
+  <div class="section-head">
+    <div>
+      <div class="section-title">Statistiken</div>
+    </div>
+  </div>
+  <div id="statistikContent"></div>
 </div>
 
 <script>
@@ -402,6 +425,31 @@ function getStatus(a) {
   return 'ok';
 }
 
+// Subtract N workdays from a date (skip Sat/Sun)
+function subWorkdays(dateStr, n) {
+  if(!dateStr) return null;
+  const d = parseDate(dateStr);
+  let count = 0;
+  while(count < n) {
+    d.setDate(d.getDate() - 1);
+    if(d.getDay() !== 0 && d.getDay() !== 6) count++;
+  }
+  return d.toISOString().split('T')[0];
+}
+
+function designDeadline(a) {
+  return subWorkdays(a.mogu, 2);
+}
+
+function markHochgeladen(id) {
+  const a = auftraege.find(x => x.id === id);
+  if(!a) return;
+  a.design = today().toISOString().split('T')[0];
+  a.hochgeladen = true;
+  save();
+  renderAuftraege();
+}
+
 // ── NAV DATE ──
 document.getElementById('navDate').textContent = new Date().toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'});
 
@@ -414,6 +462,7 @@ function showPage(name) {
   if(tab) tab.classList.add('active');
   if(name === 'auftraege') renderAuftraege();
   if(name === 'auslastung') renderAuslastung();
+  if(name === 'statistiken') renderStatistiken();
   if(name === 'neu' && editId === null) resetForm();
 }
 
@@ -454,6 +503,31 @@ function renderAuftraege() {
     else if(d <= 7) badge = `<span class="badge badge-warn">${d}d verbleibend</span>`;
     else badge = `<span class="badge badge-ok">${d}d verbleibend</span>`;
 
+    const deadline = designDeadline(a);
+    const deadlineDays = daysUntil(deadline);
+    let designInfo = '';
+    if(a.hochgeladen) {
+      designInfo = `<div style="background:rgba(34,197,94,0.1);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;gap:8px;">
+        <span style="font-size:16px;">✅</span>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--success);">Hochgeladen</div>
+          <div style="font-size:11px;color:var(--text2);">Design am ${fmtDate(a.design)}</div>
+        </div>
+      </div>`;
+    } else if(deadline) {
+      const dColor = deadlineDays !== null && deadlineDays < 0 ? 'var(--danger)' : deadlineDays !== null && deadlineDays <= 1 ? 'var(--warn)' : 'var(--text2)';
+      const dLabel = deadlineDays === null ? '' : deadlineDays < 0 ? ` · ⚠ ${Math.abs(deadlineDays)}d überfällig` : deadlineDays === 0 ? ' · ⚠ Heute' : ` · in ${deadlineDays}d`;
+      designInfo = `<div style="background:var(--surface2);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Design spätestens</div>
+          <div style="font-size:13px;font-weight:600;color:${dColor};font-family:'DM Mono',monospace;">${fmtDate(deadline)}<span style="font-size:11px;font-weight:500;">${dLabel}</span></div>
+        </div>
+        <button class="btn btn-sm" style="background:rgba(79,142,247,0.15);color:var(--accent);flex-shrink:0;" onclick="markHochgeladen('${a.id}')">
+          Hochgeladen ✅
+        </button>
+      </div>`;
+    }
+
     return `<div class="card status-${st === 'abgeschlossen' ? 'neutral' : st}">
       <div class="card-header">
         <div>
@@ -464,10 +538,6 @@ function renderAuftraege() {
       </div>
       <div class="card-dates">
         <div class="date-item">
-          <div class="date-label">Design</div>
-          <div class="date-val">${fmtDate(a.design)}</div>
-        </div>
-        <div class="date-item">
           <div class="date-label">Lieferung</div>
           <div class="date-val">${fmtDate(a.lieferung)}</div>
         </div>
@@ -475,8 +545,13 @@ function renderAuftraege() {
           <div class="date-label">MoGu</div>
           <div class="date-val" style="color:${st==='danger'?'var(--danger)':st==='warn'?'var(--warn)':'inherit'}">${fmtDate(a.mogu)}</div>
         </div>
+        <div class="date-item">
+          <div class="date-label">Status</div>
+          <div class="date-val" style="font-size:12px;">${a.hochgeladen ? '✅ Upload' : a.abgeschlossen ? '✓ Fertig' : '⏳ Offen'}</div>
+        </div>
       </div>
-      ${a.notiz ? `<div style="margin-top:10px;font-size:12px;color:var(--text2);background:var(--surface2);border-radius:6px;padding:8px 10px;">${esc(a.notiz)}</div>` : ''}
+      ${designInfo}
+      ${a.notiz ? `<div style="margin-top:8px;font-size:12px;color:var(--text2);background:var(--surface2);border-radius:6px;padding:8px 10px;">${esc(a.notiz)}</div>` : ''}
       <div class="card-actions">
         <button class="btn btn-ghost btn-sm" onclick="editAuftrag('${a.id}')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -531,10 +606,17 @@ function renderTag(aktiv) {
     days[key] = [];
   }
   aktiv.forEach(a => {
-    ['mogu','lieferung','design'].forEach(field => {
-      if(!a[field]) return;
-      if(days.hasOwnProperty(a[field])) {
-        days[a[field]].push({...a, _field: field});
+    // Use design deadline (computed) instead of actual design date
+    const dl = designDeadline(a);
+    const fields = [
+      {date: a.mogu, field: 'mogu'},
+      {date: a.lieferung, field: 'lieferung'},
+      {date: dl, field: 'design'},
+    ];
+    fields.forEach(({date, field}) => {
+      if(!date) return;
+      if(days.hasOwnProperty(date)) {
+        days[date].push({...a, _field: field});
       }
     });
   });
@@ -567,14 +649,15 @@ function renderTag(aktiv) {
       </div>
       ${jobs.length ? `<div style="display:flex;flex-direction:column;gap:6px;">
         ${jobs.map(j => {
-          const fieldLabel = j._field === 'mogu' ? '🔧 MoGu' : j._field === 'lieferung' ? '📦 Lieferung' : '✏️ Design';
-          const fieldColor = j._field === 'mogu' ? 'var(--warn)' : j._field === 'lieferung' ? 'var(--accent)' : 'var(--success)';
+          const fieldLabel = j._field === 'mogu' ? '🔧 MoGu' : j._field === 'lieferung' ? '📦 Lieferung' : '✏️ Design Deadline';
+          const fieldColor = j._field === 'mogu' ? 'var(--warn)' : j._field === 'lieferung' ? 'var(--accent)' : j.hochgeladen ? 'var(--success)' : 'var(--danger)';
+          const extraLabel = j._field === 'design' && j.hochgeladen ? ' ✅' : '';
           return `<div style="background:var(--surface2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
             <div>
               <div style="font-size:13px;font-weight:600;">${esc(j.auftragsnr||j.patient||j.kunde)}${j.kiefer ? ' <span style="font-size:11px;color:var(--text2);">· '+esc(j.kiefer)+'</span>' : ''}</div>
               <div style="font-size:11px;color:var(--text2);">${esc(j.kunde)}${j.indikation?' · '+esc(j.indikation):''}</div>
             </div>
-            <span style="font-size:11px;font-weight:600;color:${fieldColor};background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">${fieldLabel}</span>
+            <span style="font-size:11px;font-weight:600;color:${fieldColor};background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">${fieldLabel}${extraLabel}</span>
           </div>`;
         }).join('')}
       </div>` : `<div style="font-size:12px;color:var(--text3);">Keine Termine</div>`}
@@ -582,7 +665,130 @@ function renderTag(aktiv) {
   }).join('');
 }
 
-function getKW(dateStr) {
+// ── RENDER STATISTIKEN ──
+function renderStatistiken() {
+  const container = document.getElementById('statistikContent');
+  const alle = auftraege;
+  const aktiv = alle.filter(a => !a.abgeschlossen);
+  const abgeschlossen = alle.filter(a => a.abgeschlossen);
+  const expanded = expandAuftraege(aktiv);
+
+  // Indikation breakdown
+  const indCount = {};
+  alle.forEach(a => {
+    const k = a.indikation || 'Keine Angabe';
+    indCount[k] = (indCount[k] || 0) + 1;
+  });
+
+  // Kunde breakdown
+  const kundeCount = {};
+  alle.forEach(a => {
+    const k = a.kunde || 'Unbekannt';
+    kundeCount[k] = (kundeCount[k] || 0) + 1;
+  });
+  const topKunden = Object.entries(kundeCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+
+  // Kiefer breakdown
+  const kieferCount = {'OK':0,'UK':0,'OK + UK':0,'—':0};
+  alle.forEach(a => { kieferCount[a.kiefer||'—'] = (kieferCount[a.kiefer||'—']||0)+1; });
+
+  // Monthly trend (last 6 months by design date)
+  const monthCount = {};
+  const now = new Date();
+  for(let i=5;i>=0;i--) {
+    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
+    const key = d.toLocaleDateString('de-DE',{month:'short',year:'2-digit'});
+    monthCount[key] = 0;
+  }
+  alle.forEach(a => {
+    if(!a.design) return;
+    const d = parseDate(a.design);
+    const key = d.toLocaleDateString('de-DE',{month:'short',year:'2-digit'});
+    if(monthCount.hasOwnProperty(key)) monthCount[key]++;
+  });
+
+  const maxMonth = Math.max(...Object.values(monthCount), 1);
+  const indColors = {'Geschiebe MoGu':'var(--accent)','Klammer MoGu':'var(--success)','Teleskoparbeit':'var(--warn)','Keine Angabe':'var(--text3)'};
+
+  container.innerHTML = `
+    <!-- Übersicht -->
+    <div class="stats-grid" style="margin-bottom:16px;">
+      <div class="stat-card">
+        <div class="stat-val">${alle.length}</div>
+        <div class="stat-label">Aufträge gesamt</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--success)">${abgeschlossen.length}</div>
+        <div class="stat-label">Abgeschlossen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--accent)">${aktiv.length}</div>
+        <div class="stat-label">Aktiv (Aufträge)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" style="color:var(--warn)">${expanded.length}</div>
+        <div class="stat-label">Aktiv (Gussteile)</div>
+      </div>
+    </div>
+
+    <!-- Indikation -->
+    <div class="week-card" style="margin-bottom:10px;">
+      <div class="week-label" style="margin-bottom:12px;">Aufträge nach Indikation</div>
+      ${Object.entries(indCount).map(([k,v]) => {
+        const pct = Math.round((v/alle.length)*100);
+        const color = indColors[k] || 'var(--text2)';
+        return `<div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+            <span style="font-size:13px;font-weight:500;">${k}</span>
+            <span style="font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;">${v} · ${pct}%</span>
+          </div>
+          <div class="progress-bar"><div style="height:100%;border-radius:3px;background:${color};width:${pct}%;transition:width 0.4s;"></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <!-- Monatstrend -->
+    <div class="week-card" style="margin-bottom:10px;">
+      <div class="week-label" style="margin-bottom:12px;">Aufträge pro Monat (Design-Datum)</div>
+      <div style="display:flex;align-items:flex-end;gap:6px;height:80px;">
+        ${Object.entries(monthCount).map(([k,v]) => {
+          const h = Math.round((v/maxMonth)*100);
+          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;">${v||''}</span>
+            <div style="width:100%;background:${v>0?'var(--accent)':'var(--surface3)'};border-radius:4px 4px 0 0;height:${Math.max(h,4)}%;opacity:${v>0?1:0.3};transition:height 0.4s;"></div>
+            <span style="font-size:9px;color:var(--text3);text-align:center;">${k}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Top Kunden -->
+    <div class="week-card" style="margin-bottom:10px;">
+      <div class="week-label" style="margin-bottom:12px;">Top Kunden</div>
+      ${topKunden.map(([k,v],i) => `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text2);">${i+1}</div>
+          <div style="flex:1;font-size:13px;font-weight:500;">${esc(k)}</div>
+          <span class="badge badge-blue">${v} Auftr.</span>
+        </div>`).join('')}
+    </div>
+
+    <!-- Kiefer -->
+    <div class="week-card" style="margin-bottom:10px;">
+      <div class="week-label" style="margin-bottom:12px;">Verteilung Kiefer</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        ${[['OK','var(--accent)'],['UK','var(--success)'],['OK + UK','var(--warn)'],['—','var(--text3)']].map(([k,c]) =>
+          `<div style="background:var(--surface2);border-radius:8px;padding:10px;text-align:center;">
+            <div style="font-size:20px;font-weight:700;color:${c};">${kieferCount[k]||0}</div>
+            <div style="font-size:11px;color:var(--text2);">${k}</div>
+          </div>`
+        ).join('')}
+      </div>
+    </div>
+  `;
+}
+
+
   const d = parseDate(dateStr);
   const startOfYear = new Date(d.getFullYear(), 0, 1);
   const days = Math.floor((d - startOfYear) / 86400000);
@@ -593,12 +799,10 @@ function getKW(dateStr) {
 function resetForm() {
   editId = null;
   document.getElementById('formTitle').textContent = 'Neuer Auftrag';
-  ['auftragsnr','kunde','patient','indikation','kiefer','design','lieferung','mogu','notiz'].forEach(f => {
+  ['auftragsnr','kunde','patient','indikation','kiefer','lieferung','mogu','notiz'].forEach(f => {
     const el = document.getElementById('f-'+f);
-    el.value = '';
+    if(el) el.value = '';
   });
-  // Default design date = today
-  document.getElementById('f-design').value = today().toISOString().split('T')[0];
 }
 
 function editAuftrag(id) {
@@ -611,7 +815,6 @@ function editAuftrag(id) {
   document.getElementById('f-patient').value = a.patient || '';
   document.getElementById('f-indikation').value = a.indikation || '';
   document.getElementById('f-kiefer').value = a.kiefer || '';
-  document.getElementById('f-design').value = a.design || '';
   document.getElementById('f-lieferung').value = a.lieferung || '';
   document.getElementById('f-mogu').value = a.mogu || '';
   document.getElementById('f-notiz').value = a.notiz || '';
@@ -619,6 +822,7 @@ function editAuftrag(id) {
 }
 
 function saveAuftrag() {
+  const existing = editId ? (auftraege.find(x=>x.id===editId)||{}) : {};
   const a = {
     id: editId || Date.now().toString(),
     auftragsnr: document.getElementById('f-auftragsnr').value.trim(),
@@ -626,11 +830,12 @@ function saveAuftrag() {
     patient: document.getElementById('f-patient').value.trim(),
     indikation: document.getElementById('f-indikation').value.trim(),
     kiefer: document.getElementById('f-kiefer').value,
-    design: document.getElementById('f-design').value,
+    design: existing.design || '',
+    hochgeladen: existing.hochgeladen || false,
     lieferung: document.getElementById('f-lieferung').value,
     mogu: document.getElementById('f-mogu').value,
     notiz: document.getElementById('f-notiz').value.trim(),
-    abgeschlossen: editId ? (auftraege.find(x=>x.id===editId)||{}).abgeschlossen : false,
+    abgeschlossen: existing.abgeschlossen || false,
   };
   if(!a.kunde && !a.patient) { alert('Bitte mindestens Kunde oder Patient eintragen.'); return; }
   if(editId) { const idx = auftraege.findIndex(x=>x.id===editId); auftraege[idx] = a; }
@@ -656,5 +861,6 @@ function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 // ── INIT ──
 renderAuftraege();
 </script>
+
 </body>
 </html>
