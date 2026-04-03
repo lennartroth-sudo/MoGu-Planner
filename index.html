@@ -277,9 +277,9 @@
   <div class="section-head">
     <div>
       <div class="section-title">Auslastung</div>
-      <div class="section-sub">Wochenübersicht der nächsten 6 Wochen</div>
     </div>
   </div>
+
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-val" id="statTotal">0</div>
@@ -308,6 +308,10 @@
     <button class="btn btn-ghost btn-sm" onclick="showPage('auftraege')">Abbrechen</button>
   </div>
 
+  <div class="form-group">
+    <label class="form-label">Auftragsnummer</label>
+    <input class="form-input" id="f-auftragsnr" placeholder="z.B. AT-2026-0047" />
+  </div>
   <div class="form-group">
     <label class="form-label">Kunde / Zahnarzt</label>
     <input class="form-input" id="f-kunde" placeholder="Dr. Mustermann" />
@@ -453,7 +457,7 @@ function renderAuftraege() {
     return `<div class="card status-${st === 'abgeschlossen' ? 'neutral' : st}">
       <div class="card-header">
         <div>
-          <div class="card-title">${esc(a.kunde)}</div>
+          <div class="card-title">${esc(a.kunde)}${a.auftragsnr ? ' <span style="font-size:12px;color:var(--text2);font-family:\'DM Mono\',monospace;font-weight:400;">· '+esc(a.auftragsnr)+'</span>' : ''}</div>
           <div class="card-sub">${esc(a.patient)}${a.indikation ? ' · '+esc(a.indikation) : ''}${a.kiefer ? ' · '+esc(a.kiefer) : ''}</div>
         </div>
         ${badge}
@@ -499,47 +503,66 @@ function renderAuslastung() {
   document.getElementById('statKritisch').textContent = krit.length;
   const thisWeek = aktiv.filter(a => { const d = daysUntil(a.lieferung); return d!==null && d>=0 && d<=7; });
   document.getElementById('statDieseWoche').textContent = thisWeek.length;
+  renderTag(aktiv);
+}
 
-  // Build weeks
-  const weeks = {};
+function renderTag(aktiv) {
+  const days = {};
   const now = today();
-  for(let i=0; i<6; i++) {
-    const d = new Date(now); d.setDate(now.getDate() + i*7);
-    const key = getWeekKey(d);
-    if(!weeks[key]) weeks[key] = [];
+  // Show next 14 days
+  for(let i=0; i<14; i++) {
+    const d = new Date(now); d.setDate(now.getDate() + i);
+    const key = d.toISOString().split('T')[0];
+    days[key] = [];
   }
-
   aktiv.forEach(a => {
-    const relevant = a.mogu || a.lieferung;
-    if(!relevant) return;
-    const key = getWeekKey(parseDate(relevant));
-    if(!weeks[key]) weeks[key] = [];
-    weeks[key].push(a);
+    ['mogu','lieferung','design'].forEach(field => {
+      if(!a[field]) return;
+      if(days.hasOwnProperty(a[field])) {
+        days[a[field]].push({...a, _field: field});
+      }
+    });
   });
 
-  const MAX = 5;
   const container = document.getElementById('auslastungList');
-  const sortedKeys = Object.keys(weeks).sort();
-
-  if(!sortedKeys.length) {
-    container.innerHTML = '<div class="empty"><div class="empty-icon">📅</div><div class="empty-text">Noch keine Aufträge vorhanden.</div></div>';
-    return;
-  }
+  const sortedKeys = Object.keys(days).sort();
+  const dayNames = ['So','Mo','Di','Mi','Do','Fr','Sa'];
 
   container.innerHTML = sortedKeys.map(key => {
-    const jobs = weeks[key] || [];
-    const pct = Math.min(100, Math.round((jobs.length / MAX) * 100));
-    const busy = jobs.length >= MAX;
-    const isCurrentWeek = getWeekKey(today()) === key;
-    return `<div class="week-card">
+    const jobs = days[key];
+    const d = parseDate(key);
+    const isToday = key === now.toISOString().split('T')[0];
+    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+    const dayName = dayNames[d.getDay()];
+    const dateStr = d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+
+    return `<div class="week-card" style="${isToday ? 'border-color:var(--accent);' : ''}${isWeekend ? 'opacity:0.6;' : ''}">
       <div class="week-head">
-        <div>
-          <div class="week-label">${isCurrentWeek ? '📍 ' : ''}KW ${getKW(key)} · ${weekLabel(key)}</div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="background:${isToday?'var(--accent)':'var(--surface3)'};border-radius:8px;padding:4px 10px;text-align:center;">
+            <div style="font-size:10px;color:${isToday?'rgba(255,255,255,0.8)':'var(--text3)'};font-weight:600;">${dayName}</div>
+            <div style="font-size:16px;font-weight:700;color:${isToday?'white':'var(--text)'};font-family:'DM Mono',monospace;">${d.getDate()}</div>
+          </div>
+          <div>
+            <div class="week-label">${isToday ? '📍 Heute · ' : ''}${dateStr}</div>
+            ${isWeekend ? '<div style="font-size:11px;color:var(--text3);">Wochenende</div>' : ''}
+          </div>
         </div>
-        <span class="badge ${busy?'badge-warn':'badge-blue'}">${jobs.length} Auftr.</span>
+        <span class="badge ${jobs.length>3?'badge-warn':jobs.length>0?'badge-blue':'badge-neutral'}">${jobs.length} Termin${jobs.length!==1?'e':''}</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill ${busy?'busy':''}" style="width:${pct}%"></div></div>
-      ${jobs.length ? `<div class="week-jobs">${jobs.map(j=>`<div class="week-job-chip">${esc(j.patient||j.kunde)}</div>`).join('')}</div>` : `<div style="font-size:12px;color:var(--text3);">Keine Termine diese Woche</div>`}
+      ${jobs.length ? `<div style="display:flex;flex-direction:column;gap:6px;">
+        ${jobs.map(j => {
+          const fieldLabel = j._field === 'mogu' ? '🔧 MoGu' : j._field === 'lieferung' ? '📦 Lieferung' : '✏️ Design';
+          const fieldColor = j._field === 'mogu' ? 'var(--warn)' : j._field === 'lieferung' ? 'var(--accent)' : 'var(--success)';
+          return `<div style="background:var(--surface2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:600;">${esc(j.auftragsnr||j.patient||j.kunde)}</div>
+              <div style="font-size:11px;color:var(--text2);">${esc(j.kunde)}${j.indikation?' · '+esc(j.indikation):''}</div>
+            </div>
+            <span style="font-size:11px;font-weight:600;color:${fieldColor};background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">${fieldLabel}</span>
+          </div>`;
+        }).join('')}
+      </div>` : `<div style="font-size:12px;color:var(--text3);">Keine Termine</div>`}
     </div>`;
   }).join('');
 }
@@ -555,7 +578,7 @@ function getKW(dateStr) {
 function resetForm() {
   editId = null;
   document.getElementById('formTitle').textContent = 'Neuer Auftrag';
-  ['kunde','patient','indikation','kiefer','design','lieferung','mogu','notiz'].forEach(f => {
+  ['auftragsnr','kunde','patient','indikation','kiefer','design','lieferung','mogu','notiz'].forEach(f => {
     const el = document.getElementById('f-'+f);
     el.value = '';
   });
@@ -568,6 +591,7 @@ function editAuftrag(id) {
   if(!a) return;
   editId = id;
   document.getElementById('formTitle').textContent = 'Auftrag bearbeiten';
+  document.getElementById('f-auftragsnr').value = a.auftragsnr || '';
   document.getElementById('f-kunde').value = a.kunde || '';
   document.getElementById('f-patient').value = a.patient || '';
   document.getElementById('f-indikation').value = a.indikation || '';
@@ -582,6 +606,7 @@ function editAuftrag(id) {
 function saveAuftrag() {
   const a = {
     id: editId || Date.now().toString(),
+    auftragsnr: document.getElementById('f-auftragsnr').value.trim(),
     kunde: document.getElementById('f-kunde').value.trim(),
     patient: document.getElementById('f-patient').value.trim(),
     indikation: document.getElementById('f-indikation').value.trim(),
