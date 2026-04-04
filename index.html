@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="UTF-8">
@@ -9,323 +8,117 @@
 <title>MoGu Planner</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #222638;
-    --surface3: #2a2f45;
-    --accent: #4f8ef7;
-    --accent2: #7c3aed;
-    --success: #22c55e;
-    --warn: #f59e0b;
-    --danger: #ef4444;
-    --text: #f0f2ff;
-    --text2: #8b91b0;
-    --text3: #555c7a;
-    --border: #2a2f45;
-    --radius: 14px;
-    --radius-sm: 8px;
-  }
-
-- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-font-family: ‘DM Sans’, sans-serif;
-background: var(–bg);
-color: var(–text);
-min-height: 100dvh;
-overflow-x: hidden;
+:root {
+  --bg:#0f1117; --surface:#1a1d27; --surface2:#222638; --surface3:#2a2f45;
+  --accent:#4f8ef7; --success:#22c55e; --warn:#f59e0b; --danger:#ef4444;
+  --text:#f0f2ff; --text2:#8b91b0; --text3:#555c7a; --border:#2a2f45;
+  --radius:14px; --radius-sm:8px;
 }
-
-/* ── NAV ── */
-.nav {
-position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-background: rgba(15,17,23,0.85);
-backdrop-filter: blur(20px);
-border-bottom: 1px solid var(–border);
-padding: 14px 20px 10px;
-display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo {
-font-size: 18px; font-weight: 700; letter-spacing: -0.5px;
-background: linear-gradient(135deg, var(–accent), #a78bfa);
--webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.nav-logo span { font-weight: 300; }
-
-/* ── TABS ── */
-.tabs {
-position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-background: rgba(15,17,23,0.92);
-backdrop-filter: blur(20px);
-border-top: 1px solid var(–border);
-display: flex;
-padding-bottom: env(safe-area-inset-bottom);
-}
-.tab {
-flex: 1; display: flex; flex-direction: column; align-items: center;
-padding: 10px 0 8px; gap: 3px;
-background: none; border: none; color: var(–text3);
-font-family: ‘DM Sans’, sans-serif; font-size: 11px; font-weight: 500;
-cursor: pointer; transition: color 0.2s;
-}
-.tab.active { color: var(–accent); }
-.tab svg { width: 22px; height: 22px; }
-
-/* ── PAGES ── */
-.page { display: none; padding: 80px 16px 90px; min-height: 100dvh; }
-.page.active { display: block; }
-
-/* ── SECTION HEADER ── */
-.section-head {
-display: flex; align-items: center; justify-content: space-between;
-margin-bottom: 16px;
-}
-.section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-.section-sub { font-size: 13px; color: var(–text2); margin-top: 2px; }
-
-/* ── BUTTON ── */
-.btn {
-display: inline-flex; align-items: center; gap: 6px;
-padding: 10px 18px; border-radius: 50px; border: none; cursor: pointer;
-font-family: ‘DM Sans’, sans-serif; font-size: 14px; font-weight: 600;
-transition: all 0.15s; user-select: none;
-}
-.btn-primary { background: var(–accent); color: #fff; }
-.btn-primary:active { transform: scale(0.96); background: #3a7af0; }
-.btn-ghost { background: var(–surface2); color: var(–text2); }
-.btn-ghost:active { transform: scale(0.96); }
-.btn-danger { background: rgba(239,68,68,0.15); color: var(–danger); }
-.btn-sm { padding: 7px 14px; font-size: 13px; }
-.btn-full { width: 100%; justify-content: center; padding: 14px; border-radius: var(–radius); }
-
-/* ── FORM ── */
-.form-group { margin-bottom: 14px; }
-.form-label {
-display: block; font-size: 12px; font-weight: 600; color: var(–text2);
-text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px;
-}
-.form-input {
-width: 100%; background: var(–surface2); border: 1.5px solid var(–border);
-border-radius: var(–radius-sm); padding: 12px 14px;
-color: var(–text); font-family: ‘DM Sans’, sans-serif; font-size: 15px;
-outline: none; transition: border-color 0.2s;
--webkit-appearance: none;
-}
-.form-input:focus { border-color: var(–accent); }
-.form-input::placeholder { color: var(–text3); }
-select.form-input { background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘12’ viewBox=‘0 0 12 12’%3E%3Cpath fill=’%238b91b0’ d=‘M6 8L1 3h10z’/%3E%3C/svg%3E”); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-
-/* ── CARD ── */
-.card {
-background: var(–surface); border: 1px solid var(–border);
-border-radius: var(–radius); padding: 16px; margin-bottom: 12px;
-position: relative; overflow: hidden;
-}
-.card::before {
-content: ‘’; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-}
-.card.status-ok::before { background: var(–success); }
-.card.status-warn::before { background: var(–warn); }
-.card.status-danger::before { background: var(–danger); }
-.card.status-neutral::before { background: var(–text3); }
-
-.card-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-.card-title { font-size: 15px; font-weight: 600; }
-.card-sub { font-size: 13px; color: var(–text2); margin-top: 2px; }
-
-.badge {
-display: inline-flex; align-items: center; gap: 4px;
-padding: 3px 10px; border-radius: 50px; font-size: 11px; font-weight: 600;
-}
-.badge-ok { background: rgba(34,197,94,0.15); color: var(–success); }
-.badge-warn { background: rgba(245,158,11,0.15); color: var(–warn); }
-.badge-danger { background: rgba(239,68,68,0.15); color: var(–danger); }
-.badge-neutral { background: var(–surface3); color: var(–text2); }
-.badge-blue { background: rgba(79,142,247,0.15); color: var(–accent); }
-
-.card-dates {
-display: grid; grid-template-columns: 1fr 1fr 1fr;
-gap: 8px; margin-top: 10px;
-}
-.date-item { background: var(–surface2); border-radius: var(–radius-sm); padding: 8px 10px; }
-.date-label { font-size: 10px; color: var(–text3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-.date-val { font-size: 13px; font-weight: 600; font-family: ‘DM Mono’, monospace; }
-
-.card-actions { display: flex; gap: 8px; margin-top: 12px; }
-
-/* ── MODAL ── */
-.modal-overlay {
-display: none; position: fixed; inset: 0; z-index: 200;
-background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-align-items: flex-end;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-background: var(–surface); border-radius: 20px 20px 0 0;
-width: 100%; max-height: 92dvh; overflow-y: auto;
-padding: 24px 20px 40px;
-animation: slideUp 0.3s cubic-bezier(0.32,0.72,0,1);
-}
-@keyframes slideUp {
-from { transform: translateY(100%); }
-to { transform: translateY(0); }
-}
-.modal-handle {
-width: 36px; height: 4px; background: var(–surface3);
-border-radius: 2px; margin: 0 auto 20px;
-}
-.modal-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-
-/* ── AUSLASTUNG ── */
-.week-card {
-background: var(–surface); border: 1px solid var(–border);
-border-radius: var(–radius); padding: 16px; margin-bottom: 10px;
-}
-.week-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.week-label { font-size: 14px; font-weight: 600; }
-.week-count { font-size: 13px; color: var(–text2); }
-.progress-bar {
-height: 6px; background: var(–surface3); border-radius: 3px; overflow: hidden; margin-bottom: 10px;
-}
-.progress-fill {
-height: 100%; border-radius: 3px;
-background: linear-gradient(90deg, var(–accent), #a78bfa);
-transition: width 0.4s ease;
-}
-.progress-fill.busy { background: linear-gradient(90deg, var(–warn), var(–danger)); }
-.week-jobs { display: flex; flex-wrap: wrap; gap: 6px; }
-.week-job-chip {
-background: var(–surface2); border-radius: 6px;
-padding: 4px 10px; font-size: 12px; color: var(–text2);
-}
-
-/* ── STATS ── */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.stat-card {
-background: var(–surface); border: 1px solid var(–border);
-border-radius: var(–radius); padding: 16px;
-}
-.stat-val { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
-.stat-label { font-size: 12px; color: var(–text2); margin-top: 2px; }
-
-/* ── EMPTY STATE ── */
-.empty {
-text-align: center; padding: 60px 20px;
-color: var(–text3);
-}
-.empty-icon { font-size: 48px; margin-bottom: 12px; }
-.empty-text { font-size: 15px; line-height: 1.5; }
-
-/* ── FAB ── */
-.fab {
-position: fixed; right: 20px; bottom: 80px; z-index: 90;
-width: 56px; height: 56px; border-radius: 50%;
-background: linear-gradient(135deg, var(–accent), #7c3aed);
-border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-box-shadow: 0 4px 20px rgba(79,142,247,0.4);
-transition: transform 0.15s;
-}
-.fab:active { transform: scale(0.92); }
-.fab svg { width: 24px; height: 24px; color: white; }
-
-/* ── FILTER ROW ── */
-.filter-row { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 16px; padding-bottom: 2px; }
-.filter-row::-webkit-scrollbar { display: none; }
-.filter-chip {
-flex-shrink: 0; padding: 6px 14px; border-radius: 50px;
-background: var(–surface2); border: 1.5px solid var(–border);
-color: var(–text2); font-size: 13px; font-weight: 500;
-cursor: pointer; transition: all 0.15s; white-space: nowrap;
-}
-.filter-chip.active { background: rgba(79,142,247,0.15); border-color: var(–accent); color: var(–accent); }
-
-.divider { height: 1px; background: var(–border); margin: 16px 0; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,17,23,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px 10px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tabs{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(15,17,23,0.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;padding-bottom:env(safe-area-inset-bottom);}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 8px;gap:3px;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:color 0.2s;}
+.tab.active{color:var(--accent);}
+.tab svg{width:22px;height:22px;}
+.page{display:none;padding:80px 16px 90px;min-height:100dvh;}
+.page.active{display:block;}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.section-title{font-size:22px;font-weight:700;letter-spacing:-0.5px;}
+.section-sub{font-size:13px;color:var(--text2);margin-top:2px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;transition:all 0.15s;user-select:none;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:active{transform:scale(0.96);}
+.btn-ghost{background:var(--surface2);color:var(--text2);}
+.btn-ghost:active{transform:scale(0.96);}
+.btn-danger{background:rgba(239,68,68,0.15);color:var(--danger);}
+.btn-sm{padding:7px 14px;font-size:13px;}
+.btn-full{width:100%;justify-content:center;padding:14px;border-radius:var(--radius);}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
+.form-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;-webkit-appearance:none;}
+.form-input:focus{border-color:var(--accent);}
+.form-input::placeholder{color:var(--text3);}
+select.form-input{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b91b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;}
+.card.s-ok::before{background:var(--success);}
+.card.s-warn::before{background:var(--warn);}
+.card.s-danger::before{background:var(--danger);}
+.card.s-neutral::before{background:var(--text3);}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.card-title{font-size:15px;font-weight:600;}
+.card-sub{font-size:13px;color:var(--text2);margin-top:2px;}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:11px;font-weight:600;}
+.badge-ok{background:rgba(34,197,94,0.15);color:var(--success);}
+.badge-warn{background:rgba(245,158,11,0.15);color:var(--warn);}
+.badge-danger{background:rgba(239,68,68,0.15);color:var(--danger);}
+.badge-neutral{background:var(--surface3);color:var(--text2);}
+.badge-blue{background:rgba(79,142,247,0.15);color:var(--accent);}
+.card-dates{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;}
+.date-item{background:var(--surface2);border-radius:var(--radius-sm);padding:8px 10px;}
+.date-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+.date-val{font-size:13px;font-weight:600;font-family:'DM Mono',monospace;}
+.card-actions{display:flex;gap:8px;margin-top:12px;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.stat-val{font-size:28px;font-weight:700;letter-spacing:-1px;}
+.stat-label{font-size:12px;color:var(--text2);margin-top:2px;}
+.week-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;}
+.week-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.week-label{font-size:14px;font-weight:600;}
+.progress-bar{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.filter-row{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:2px;}
+.filter-row::-webkit-scrollbar{display:none;}
+.filter-chip{flex-shrink:0;padding:6px 14px;border-radius:50px;background:var(--surface2);border:1.5px solid var(--border);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.filter-chip.active{background:rgba(79,142,247,0.15);border-color:var(--accent);color:var(--accent);}
+.empty{text-align:center;padding:60px 20px;color:var(--text3);}
+.empty-icon{font-size:48px;margin-bottom:12px;}
+.empty-text{font-size:15px;line-height:1.5;}
+.divider{height:1px;background:var(--border);margin:16px 0;}
 </style>
-
 </head>
 <body>
 
-<!-- NAV -->
-
 <div class="nav">
-  <div>
-    <div class="nav-logo">Mo<span>Gu</span> Planner</div>
-  </div>
+  <div class="nav-logo">Mo<span style="font-weight:300;">Gu</span> Planner</div>
   <div id="navDate" style="font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;"></div>
 </div>
 
-<!-- PAGES -->
-
-<!-- ① AUFTRÄGE -->
-
 <div class="page active" id="page-auftraege">
   <div class="section-head">
-    <div>
-      <div class="section-title">Aufträge</div>
-      <div class="section-sub" id="auftraegeSubtitle">Alle laufenden Aufträge</div>
-    </div>
+    <div><div class="section-title">Aufträge</div><div class="section-sub" id="auftraegeSubtitle"></div></div>
   </div>
   <div class="filter-row">
-    <div class="filter-chip active" data-filter="alle" onclick="setFilter(this,'alle')">Alle</div>
-    <div class="filter-chip" data-filter="aktuell" onclick="setFilter(this,'aktuell')">Aktuell</div>
-    <div class="filter-chip" data-filter="diese-woche" onclick="setFilter(this,'diese-woche')">Diese Woche</div>
-    <div class="filter-chip" data-filter="kritisch" onclick="setFilter(this,'kritisch')">Kritisch</div>
-    <div class="filter-chip" data-filter="abgeschlossen" onclick="setFilter(this,'abgeschlossen')">Abgeschlossen</div>
+    <div class="filter-chip active" onclick="setFilter(this,'alle')">Alle</div>
+    <div class="filter-chip" onclick="setFilter(this,'aktuell')">Aktuell</div>
+    <div class="filter-chip" onclick="setFilter(this,'diese-woche')">Diese Woche</div>
+    <div class="filter-chip" onclick="setFilter(this,'kritisch')">Kritisch</div>
+    <div class="filter-chip" onclick="setFilter(this,'abgeschlossen')">Abgeschlossen</div>
   </div>
   <div id="auftragList"></div>
 </div>
 
-<!-- ② AUSLASTUNG -->
-
 <div class="page" id="page-auslastung">
-  <div class="section-head">
-    <div>
-      <div class="section-title">Auslastung</div>
-    </div>
-  </div>
-
+  <div class="section-head"><div><div class="section-title">Auslastung</div></div></div>
   <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-val" id="statTotal">0</div>
-      <div class="stat-label">Aufträge gesamt</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="statKritisch" style="color:var(--danger)">0</div>
-      <div class="stat-label">Kritisch / bald fällig</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="statDieseWoche" style="color:var(--warn)">0</div>
-      <div class="stat-label">Lieferung diese Woche</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-val" id="statAbgeschlossen" style="color:var(--success)">0</div>
-      <div class="stat-label">Abgeschlossen</div>
-    </div>
+    <div class="stat-card"><div class="stat-val" id="statTotal">0</div><div class="stat-label">Aufträge gesamt</div></div>
+    <div class="stat-card"><div class="stat-val" id="statKritisch" style="color:var(--danger)">0</div><div class="stat-label">Kritisch</div></div>
+    <div class="stat-card"><div class="stat-val" id="statWoche" style="color:var(--warn)">0</div><div class="stat-label">Lieferung diese Woche</div></div>
+    <div class="stat-card"><div class="stat-val" id="statFertig" style="color:var(--success)">0</div><div class="stat-label">Abgeschlossen</div></div>
   </div>
   <div id="auslastungList"></div>
 </div>
-
-<!-- ③ NEU / EDIT (hidden, used as form page) -->
 
 <div class="page" id="page-neu">
   <div class="section-head">
     <div><div class="section-title" id="formTitle">Neuer Auftrag</div></div>
     <button class="btn btn-ghost btn-sm" onclick="showPage('auftraege')">Abbrechen</button>
   </div>
-
-  <div class="form-group">
-    <label class="form-label">Auftragsnummer</label>
-    <input class="form-input" id="f-auftragsnr" placeholder="z.B. AT-2026-0047" />
-  </div>
-  <div class="form-group">
-    <label class="form-label">Kunde / Zahnarzt</label>
-    <input class="form-input" id="f-kunde" placeholder="Dr. Mustermann" />
-  </div>
-  <div class="form-group">
-    <label class="form-label">Patient</label>
-    <input class="form-input" id="f-patient" placeholder="Mustermann, M." />
-  </div>
+  <div class="form-group"><label class="form-label">Auftragsnummer</label><input class="form-input" id="f-auftragsnr" placeholder="z.B. AT-2026-0047"></div>
+  <div class="form-group"><label class="form-label">Kunde / Zahnarzt</label><input class="form-input" id="f-kunde" placeholder="Dr. Mustermann"></div>
+  <div class="form-group"><label class="form-label">Patient</label><input class="form-input" id="f-patient" placeholder="Mustermann, M."></div>
   <div class="form-group">
     <label class="form-label">Indikation</label>
     <select class="form-input" id="f-indikation">
@@ -345,20 +138,10 @@ cursor: pointer; transition: all 0.15s; white-space: nowrap;
     </select>
   </div>
   <div class="divider"></div>
-  <div class="form-group">
-    <label class="form-label">Lieferdatum</label>
-    <input class="form-input" type="date" id="f-lieferung" />
-  </div>
-  <div class="form-group">
-    <label class="form-label">MoGu Termin (fertig bis)</label>
-    <input class="form-input" type="date" id="f-mogu" />
-  </div>
+  <div class="form-group"><label class="form-label">Lieferdatum</label><input class="form-input" type="date" id="f-lieferung"></div>
+  <div class="form-group"><label class="form-label">MoGu Termin (fertig bis)</label><input class="form-input" type="date" id="f-mogu"></div>
   <div class="divider"></div>
-  <div class="form-group">
-    <label class="form-label">Notiz (optional)</label>
-    <input class="form-input" id="f-notiz" placeholder="z.B. Teleskop, Sonderlegierung..." />
-  </div>
-
+  <div class="form-group"><label class="form-label">Notiz (optional)</label><input class="form-input" id="f-notiz" placeholder="z.B. Sonderlegierung..."></div>
   <button class="btn btn-primary btn-full" onclick="saveAuftrag()" style="margin-top:8px;">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
     Speichern
@@ -366,7 +149,10 @@ cursor: pointer; transition: all 0.15s; white-space: nowrap;
   <div style="height:20px;"></div>
 </div>
 
-<!-- TABS -->
+<div class="page" id="page-statistiken">
+  <div class="section-head"><div><div class="section-title">Statistiken</div></div></div>
+  <div id="statistikContent"></div>
+</div>
 
 <div class="tabs">
   <button class="tab active" id="tab-auftraege" onclick="showPage('auftraege')">
@@ -387,480 +173,339 @@ cursor: pointer; transition: all 0.15s; white-space: nowrap;
   </button>
 </div>
 
-<!-- ④ STATISTIKEN -->
-
-<div class="page" id="page-statistiken">
-  <div class="section-head">
-    <div>
-      <div class="section-title">Statistiken</div>
-    </div>
-  </div>
-  <div id="statistikContent"></div>
-</div>
-
 <script>
-// ── STORAGE ──
-const STORE_KEY = 'mogu_auftraege_v1';
-let auftraege = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
-let editId = null;
-let activeFilter = 'alle';
+var STORE = 'mogu_v2';
+var auftraege = JSON.parse(localStorage.getItem(STORE) || '[]');
+var editId = null;
+var activeFilter = 'alle';
 
-function save() { localStorage.setItem(STORE_KEY, JSON.stringify(auftraege)); }
+function save() { localStorage.setItem(STORE, JSON.stringify(auftraege)); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ── DATE UTILS ──
-const today = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
-const parseDate = s => { if(!s) return null; const [y,m,d] = s.split('-'); return new Date(y,m-1,d); };
-const fmtDate = s => { if(!s) return '—'; const d = parseDate(s); return d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'}); };
-const daysUntil = s => { if(!s) return null; const diff = parseDate(s) - today(); return Math.round(diff / 86400000); };
-const getWeekKey = d => { const dt = new Date(d); dt.setHours(0,0,0,0); const day = dt.getDay(); const diff = dt.getDate() - day + (day===0?-6:1); dt.setDate(diff); return dt.toISOString().split('T')[0]; };
-const weekLabel = key => { const d = parseDate(key); const end = new Date(d); end.setDate(d.getDate()+6); return `${d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})} – ${end.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}`; };
+function today() { var d=new Date(); d.setHours(0,0,0,0); return d; }
+function todayStr() { return toStr(today()); }
+function toStr(d) { return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function pad(n) { return n<10?'0'+n:String(n); }
+function parseDate(s) { if(!s) return null; var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+function fmtDate(s) { if(!s) return '—'; var d=parseDate(s); return pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.'+String(d.getFullYear()).slice(2); }
+function daysUntil(s) { if(!s) return null; return Math.round((parseDate(s)-today())/86400000); }
+
+function subWorkdays(s, n) {
+  if(!s) return null;
+  var d = parseDate(s);
+  var c = 0;
+  while(c < n) {
+    d.setDate(d.getDate()-1);
+    var w = d.getDay();
+    if(w!==0 && w!==6) c++;
+  }
+  return toStr(d);
+}
+
+function designDeadline(a) { return subWorkdays(a.mogu, 2); }
 
 function getStatus(a) {
-  if(a.abgeschlossen) return 'abgeschlossen';
-  const d = daysUntil(a.mogu || a.lieferung);
-  if(d === null) return 'neutral';
-  if(d < 0) return 'danger';
-  if(d <= 3) return 'danger';
-  if(d <= 7) return 'warn';
+  if(a.abgeschlossen) return 'neutral';
+  var d = daysUntil(a.mogu || a.lieferung);
+  if(d===null) return 'neutral';
+  if(d<0) return 'danger';
+  if(d<=3) return 'danger';
+  if(d<=7) return 'warn';
   return 'ok';
 }
 
-// Subtract N workdays from a date (skip Sat/Sun)
-function subWorkdays(dateStr, n) {
-  if(!dateStr) return null;
-  const d = parseDate(dateStr);
-  let count = 0;
-  while(count < n) {
-    d.setDate(d.getDate() - 1);
-    if(d.getDay() !== 0 && d.getDay() !== 6) count++;
-  }
-  return d.toISOString().split('T')[0];
+function expandList(list) {
+  var r=[];
+  list.forEach(function(a) {
+    if(a.kiefer==='OK + UK') {
+      r.push(Object.assign({},a,{kiefer:'OK'}));
+      r.push(Object.assign({},a,{kiefer:'UK'}));
+    } else { r.push(a); }
+  });
+  return r;
 }
 
-function designDeadline(a) {
-  return subWorkdays(a.mogu, 2);
-}
-
-function markHochgeladen(id) {
-  const a = auftraege.find(x => x.id === id);
-  if(!a) return;
-  a.design = today().toISOString().split('T')[0];
-  a.hochgeladen = true;
-  save();
-  renderAuftraege();
-}
-
-// ── NAV DATE ──
 document.getElementById('navDate').textContent = new Date().toLocaleDateString('de-DE',{weekday:'short',day:'2-digit',month:'2-digit'});
 
-// ── PAGE NAV ──
 function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   document.getElementById('page-'+name).classList.add('active');
-  const tab = document.getElementById('tab-'+name);
+  var tab=document.getElementById('tab-'+name);
   if(tab) tab.classList.add('active');
-  if(name === 'auftraege') renderAuftraege();
-  if(name === 'auslastung') renderAuslastung();
-  if(name === 'statistiken') renderStatistiken();
-  if(name === 'neu' && editId === null) resetForm();
+  if(name==='auftraege') renderAuftraege();
+  else if(name==='auslastung') renderAuslastung();
+  else if(name==='statistiken') renderStatistiken();
+  else if(name==='neu' && !editId) resetForm();
 }
 
-// ── FILTER ──
 function setFilter(el, val) {
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.remove('active');});
   el.classList.add('active');
-  activeFilter = val;
+  activeFilter=val;
   renderAuftraege();
 }
 
-// ── RENDER AUFTRAEGE ──
 function renderAuftraege() {
-  const container = document.getElementById('auftragList');
-  let list = [...auftraege].sort((a,b) => (a.lieferung||'').localeCompare(b.lieferung||''));
+  var list = auftraege.slice().sort(function(a,b){return(a.lieferung||'').localeCompare(b.lieferung||'');});
+  if(activeFilter==='aktuell') list=list.filter(function(a){return!a.abgeschlossen;});
+  else if(activeFilter==='diese-woche') list=list.filter(function(a){var d=daysUntil(a.lieferung);return d!==null&&d>=0&&d<=7&&!a.abgeschlossen;});
+  else if(activeFilter==='kritisch') list=list.filter(function(a){var d=daysUntil(a.mogu||a.lieferung);return d!==null&&d<=3&&!a.abgeschlossen;});
+  else if(activeFilter==='abgeschlossen') list=list.filter(function(a){return a.abgeschlossen;});
 
-  if(activeFilter === 'aktuell') list = list.filter(a => !a.abgeschlossen);
-  else if(activeFilter === 'diese-woche') list = list.filter(a => { const d = daysUntil(a.lieferung); return d !== null && d >= 0 && d <= 7 && !a.abgeschlossen; });
-  else if(activeFilter === 'kritisch') list = list.filter(a => { const d = daysUntil(a.mogu || a.lieferung); return d !== null && d <= 3 && !a.abgeschlossen; });
-  else if(activeFilter === 'abgeschlossen') list = list.filter(a => a.abgeschlossen);
-
-  document.getElementById('auftraegeSubtitle').textContent = `${list.length} Auftrag${list.length!==1?'e':''}`;
+  document.getElementById('auftraegeSubtitle').textContent=list.length+' Auftrag'+(list.length!==1?'e':'');
+  var con=document.getElementById('auftragList');
 
   if(!list.length) {
-    container.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Keine Aufträge in dieser Ansicht.<br>Tippe auf + um einen neuen Auftrag anzulegen.</div></div>`;
+    con.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Keine Aufträge.<br>Tippe auf + um einen neuen Auftrag anzulegen.</div></div>';
     return;
   }
 
-  container.innerHTML = list.map(a => {
-    const st = getStatus(a);
-    const d = daysUntil(a.mogu || a.lieferung);
-    let badge = '';
-    if(a.abgeschlossen) badge = `<span class="badge badge-ok">✓ Abgeschlossen</span>`;
-    else if(d === null) badge = `<span class="badge badge-neutral">Kein Termin</span>`;
-    else if(d < 0) badge = `<span class="badge badge-danger">⚠ ${Math.abs(d)}d überfällig</span>`;
-    else if(d === 0) badge = `<span class="badge badge-danger">⚠ Heute fällig</span>`;
-    else if(d <= 3) badge = `<span class="badge badge-danger">⚠ ${d}d verbleibend</span>`;
-    else if(d <= 7) badge = `<span class="badge badge-warn">${d}d verbleibend</span>`;
-    else badge = `<span class="badge badge-ok">${d}d verbleibend</span>`;
+  con.innerHTML=list.map(function(a) {
+    var st=getStatus(a);
+    var d=daysUntil(a.mogu||a.lieferung);
+    var badge='';
+    if(a.abgeschlossen) badge='<span class="badge badge-ok">✓ Abgeschlossen</span>';
+    else if(d===null) badge='<span class="badge badge-neutral">Kein Termin</span>';
+    else if(d<0) badge='<span class="badge badge-danger">⚠ '+Math.abs(d)+'d überfällig</span>';
+    else if(d===0) badge='<span class="badge badge-danger">⚠ Heute fällig</span>';
+    else if(d<=3) badge='<span class="badge badge-danger">⚠ '+d+'d verbleibend</span>';
+    else if(d<=7) badge='<span class="badge badge-warn">'+d+'d verbleibend</span>';
+    else badge='<span class="badge badge-ok">'+d+'d verbleibend</span>';
 
-    const deadline = designDeadline(a);
-    const deadlineDays = daysUntil(deadline);
-    let designInfo = '';
+    var deadline=designDeadline(a);
+    var ddD=daysUntil(deadline);
+    var designBlock='';
     if(a.hochgeladen) {
-      designInfo = `<div style="background:rgba(34,197,94,0.1);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;gap:8px;">
-        <span style="font-size:16px;">✅</span>
-        <div>
-          <div style="font-size:12px;font-weight:600;color:var(--success);">Hochgeladen</div>
-          <div style="font-size:11px;color:var(--text2);">Design am ${fmtDate(a.design)}</div>
-        </div>
-      </div>`;
+      designBlock='<div style="background:rgba(34,197,94,0.1);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;gap:8px;">'
+        +'<span style="font-size:16px;">✅</span><div>'
+        +'<div style="font-size:12px;font-weight:600;color:var(--success);">Hochgeladen</div>'
+        +'<div style="font-size:11px;color:var(--text2);">Design am '+fmtDate(a.design)+'</div>'
+        +'</div></div>';
     } else if(deadline) {
-      const dColor = deadlineDays !== null && deadlineDays < 0 ? 'var(--danger)' : deadlineDays !== null && deadlineDays <= 1 ? 'var(--warn)' : 'var(--text2)';
-      const dLabel = deadlineDays === null ? '' : deadlineDays < 0 ? ` · ⚠ ${Math.abs(deadlineDays)}d überfällig` : deadlineDays === 0 ? ' · ⚠ Heute' : ` · in ${deadlineDays}d`;
-      designInfo = `<div style="background:var(--surface2);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Design spätestens</div>
-          <div style="font-size:13px;font-weight:600;color:${dColor};font-family:'DM Mono',monospace;">${fmtDate(deadline)}<span style="font-size:11px;font-weight:500;">${dLabel}</span></div>
-        </div>
-        <button class="btn btn-sm" style="background:rgba(79,142,247,0.15);color:var(--accent);flex-shrink:0;" onclick="markHochgeladen('${a.id}')">
-          Hochgeladen ✅
-        </button>
-      </div>`;
+      var dCol=(ddD!==null&&ddD<0)?'var(--danger)':(ddD!==null&&ddD<=1)?'var(--warn)':'var(--text)';
+      var dEx=ddD===null?'':ddD<0?' · ⚠ '+Math.abs(ddD)+'d überfällig':ddD===0?' · ⚠ Heute!':' · in '+ddD+'d';
+      designBlock='<div style="background:var(--surface2);border-radius:8px;padding:8px 12px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">'
+        +'<div><div style="font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Design spätestens</div>'
+        +'<div style="font-size:13px;font-weight:600;color:'+dCol+';font-family:\'DM Mono\',monospace;">'+fmtDate(deadline)
+        +'<span style="font-size:11px;font-weight:500;">'+dEx+'</span></div></div>'
+        +'<button class="btn btn-sm" style="background:rgba(79,142,247,0.15);color:var(--accent);flex-shrink:0;" onclick="markHochgeladen(\''+a.id+'\')">Hochgeladen ✅</button>'
+        +'</div>';
     }
 
-    return `<div class="card status-${st === 'abgeschlossen' ? 'neutral' : st}">
-      <div class="card-header">
-        <div>
-          <div class="card-title">${esc(a.kunde)}${a.auftragsnr ? ' <span style="font-size:12px;color:var(--text2);font-family:\'DM Mono\',monospace;font-weight:400;">· '+esc(a.auftragsnr)+'</span>' : ''}</div>
-          <div class="card-sub">${esc(a.patient)}${a.indikation ? ' · '+esc(a.indikation) : ''}${a.kiefer ? ' · '+esc(a.kiefer) : ''}</div>
-        </div>
-        ${badge}
-      </div>
-      <div class="card-dates">
-        <div class="date-item">
-          <div class="date-label">Lieferung</div>
-          <div class="date-val">${fmtDate(a.lieferung)}</div>
-        </div>
-        <div class="date-item">
-          <div class="date-label">MoGu</div>
-          <div class="date-val" style="color:${st==='danger'?'var(--danger)':st==='warn'?'var(--warn)':'inherit'}">${fmtDate(a.mogu)}</div>
-        </div>
-        <div class="date-item">
-          <div class="date-label">Status</div>
-          <div class="date-val" style="font-size:12px;">${a.hochgeladen ? '✅ Upload' : a.abgeschlossen ? '✓ Fertig' : '⏳ Offen'}</div>
-        </div>
-      </div>
-      ${designInfo}
-      ${a.notiz ? `<div style="margin-top:8px;font-size:12px;color:var(--text2);background:var(--surface2);border-radius:6px;padding:8px 10px;">${esc(a.notiz)}</div>` : ''}
-      <div class="card-actions">
-        <button class="btn btn-ghost btn-sm" onclick="editAuftrag('${a.id}')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Bearbeiten
-        </button>
-        ${!a.abgeschlossen ? `<button class="btn btn-sm" style="background:rgba(34,197,94,0.12);color:var(--success);" onclick="toggleAbgeschlossen('${a.id}')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Fertig
-        </button>` : `<button class="btn btn-ghost btn-sm" onclick="toggleAbgeschlossen('${a.id}')">Wieder öffnen</button>`}
-        <button class="btn btn-danger btn-sm" onclick="deleteAuftrag('${a.id}')">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-        </button>
-      </div>
-    </div>`;
+    var notizBlock=a.notiz?'<div style="margin-top:8px;font-size:12px;color:var(--text2);background:var(--surface2);border-radius:6px;padding:8px 10px;">'+esc(a.notiz)+'</div>':'';
+    var statusIcon=a.hochgeladen?'✅':a.abgeschlossen?'✓ Fertig':'⏳ Offen';
+
+    return '<div class="card s-'+st+'">'
+      +'<div class="card-header"><div>'
+      +'<div class="card-title">'+esc(a.kunde)+(a.auftragsnr?' <span style="font-size:12px;color:var(--text2);font-family:\'DM Mono\',monospace;font-weight:400;">· '+esc(a.auftragsnr)+'</span>':'')+'</div>'
+      +'<div class="card-sub">'+esc(a.patient)+(a.indikation?' · '+esc(a.indikation):'')+(a.kiefer?' · '+esc(a.kiefer):'')+'</div>'
+      +'</div>'+badge+'</div>'
+      +'<div class="card-dates">'
+      +'<div class="date-item"><div class="date-label">Lieferung</div><div class="date-val">'+fmtDate(a.lieferung)+'</div></div>'
+      +'<div class="date-item"><div class="date-label">MoGu</div><div class="date-val" style="color:'+(st==='danger'?'var(--danger)':st==='warn'?'var(--warn)':'inherit')+'">'+fmtDate(a.mogu)+'</div></div>'
+      +'<div class="date-item"><div class="date-label">Status</div><div class="date-val" style="font-size:11px;">'+statusIcon+'</div></div>'
+      +'</div>'
+      +designBlock+notizBlock
+      +'<div class="card-actions">'
+      +'<button class="btn btn-ghost btn-sm" onclick="editAuftrag(\''+a.id+'\')">✏️ Bearbeiten</button>'
+      +(!a.abgeschlossen
+        ?'<button class="btn btn-sm" style="background:rgba(34,197,94,0.12);color:var(--success);" onclick="toggleFertig(\''+a.id+'\')">✓ Fertig</button>'
+        :'<button class="btn btn-ghost btn-sm" onclick="toggleFertig(\''+a.id+'\')">↩ Öffnen</button>')
+      +'<button class="btn btn-danger btn-sm" onclick="delAuftrag(\''+a.id+'\')">🗑</button>'
+      +'</div></div>';
   }).join('');
-}
-
-// ── RENDER AUSLASTUNG ──
-function expandAuftraege(list) {
-  // OK+UK counts as 2 separate entries
-  const expanded = [];
-  list.forEach(a => {
-    if(a.kiefer === 'OK + UK') {
-      expanded.push({...a, kiefer: 'OK', _expanded: true});
-      expanded.push({...a, kiefer: 'UK', _expanded: true});
-    } else {
-      expanded.push(a);
-    }
-  });
-  return expanded;
 }
 
 function renderAuslastung() {
-  const aktiv = auftraege.filter(a => !a.abgeschlossen);
-  const expanded = expandAuftraege(aktiv);
-  document.getElementById('statTotal').textContent = expanded.length;
-  document.getElementById('statAbgeschlossen').textContent = auftraege.filter(a=>a.abgeschlossen).length;
-  const krit = expanded.filter(a => { const d = daysUntil(a.mogu||a.lieferung); return d!==null && d<=3; });
-  document.getElementById('statKritisch').textContent = krit.length;
-  const thisWeek = expanded.filter(a => { const d = daysUntil(a.lieferung); return d!==null && d>=0 && d<=7; });
-  document.getElementById('statDieseWoche').textContent = thisWeek.length;
-  renderTag(expanded);
-}
+  var aktiv=auftraege.filter(function(a){return!a.abgeschlossen;});
+  var exp=expandList(aktiv);
+  document.getElementById('statTotal').textContent=exp.length;
+  document.getElementById('statFertig').textContent=auftraege.filter(function(a){return a.abgeschlossen;}).length;
+  document.getElementById('statKritisch').textContent=exp.filter(function(a){var d=daysUntil(a.mogu||a.lieferung);return d!==null&&d<=3;}).length;
+  document.getElementById('statWoche').textContent=exp.filter(function(a){var d=daysUntil(a.lieferung);return d!==null&&d>=0&&d<=7;}).length;
 
-function renderTag(aktiv) {
-  const days = {};
-  const now = today();
-  // Show next 14 days
-  for(let i=0; i<14; i++) {
-    const d = new Date(now); d.setDate(now.getDate() + i);
-    const key = d.toISOString().split('T')[0];
-    days[key] = [];
-  }
-  aktiv.forEach(a => {
-    // Use design deadline (computed) instead of actual design date
-    const dl = designDeadline(a);
-    const fields = [
-      {date: a.mogu, field: 'mogu'},
-      {date: a.lieferung, field: 'lieferung'},
-      {date: dl, field: 'design'},
-    ];
-    fields.forEach(({date, field}) => {
-      if(!date) return;
-      if(days.hasOwnProperty(date)) {
-        days[date].push({...a, _field: field});
-      }
+  var days={};
+  var now=today();
+  for(var i=0;i<14;i++){var dd=new Date(now);dd.setDate(now.getDate()+i);days[toStr(dd)]=[];}
+
+  aktiv.forEach(function(a) {
+    var klist=a.kiefer==='OK + UK'?['OK','UK']:[a.kiefer||''];
+    var entries=[{date:a.mogu,field:'mogu'},{date:a.lieferung,field:'lieferung'},{date:designDeadline(a),field:'design'}];
+    entries.forEach(function(e) {
+      if(!e.date||!days.hasOwnProperty(e.date)) return;
+      klist.forEach(function(k) {
+        days[e.date].push(Object.assign({},a,{kiefer:k,_field:e.field}));
+      });
     });
   });
 
-  const container = document.getElementById('auslastungList');
-  const sortedKeys = Object.keys(days).sort();
-  const dayNames = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+  var con=document.getElementById('auslastungList');
+  var DN=['So','Mo','Di','Mi','Do','Fr','Sa'];
+  var todKey=todayStr();
 
-  container.innerHTML = sortedKeys.map(key => {
-    const jobs = days[key];
-    const d = parseDate(key);
-    const isToday = key === now.toISOString().split('T')[0];
-    const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-    const dayName = dayNames[d.getDay()];
-    const dateStr = d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+  con.innerHTML=Object.keys(days).sort().map(function(key) {
+    var jobs=days[key];
+    var d=parseDate(key);
+    var isT=key===todKey;
+    var isW=d.getDay()===0||d.getDay()===6;
+    var ds=pad(d.getDate())+'.'+pad(d.getMonth()+1)+'.';
 
-    return `<div class="week-card" style="${isToday ? 'border-color:var(--accent);' : ''}${isWeekend ? 'opacity:0.6;' : ''}">
-      <div class="week-head">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div style="background:${isToday?'var(--accent)':'var(--surface3)'};border-radius:8px;padding:4px 10px;text-align:center;">
-            <div style="font-size:10px;color:${isToday?'rgba(255,255,255,0.8)':'var(--text3)'};font-weight:600;">${dayName}</div>
-            <div style="font-size:16px;font-weight:700;color:${isToday?'white':'var(--text)'};font-family:'DM Mono',monospace;">${d.getDate()}</div>
-          </div>
-          <div>
-            <div class="week-label">${isToday ? '📍 Heute · ' : ''}${dateStr}</div>
-            ${isWeekend ? '<div style="font-size:11px;color:var(--text3);">Wochenende</div>' : ''}
-          </div>
-        </div>
-        <span class="badge ${jobs.length>3?'badge-warn':jobs.length>0?'badge-blue':'badge-neutral'}">${jobs.length} Termin${jobs.length!==1?'e':''}</span>
-      </div>
-      ${jobs.length ? `<div style="display:flex;flex-direction:column;gap:6px;">
-        ${jobs.map(j => {
-          const fieldLabel = j._field === 'mogu' ? '🔧 MoGu' : j._field === 'lieferung' ? '📦 Lieferung' : '✏️ Design Deadline';
-          const fieldColor = j._field === 'mogu' ? 'var(--warn)' : j._field === 'lieferung' ? 'var(--accent)' : j.hochgeladen ? 'var(--success)' : 'var(--danger)';
-          const extraLabel = j._field === 'design' && j.hochgeladen ? ' ✅' : '';
-          return `<div style="background:var(--surface2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
-            <div>
-              <div style="font-size:13px;font-weight:600;">${esc(j.auftragsnr||j.patient||j.kunde)}${j.kiefer ? ' <span style="font-size:11px;color:var(--text2);">· '+esc(j.kiefer)+'</span>' : ''}</div>
-              <div style="font-size:11px;color:var(--text2);">${esc(j.kunde)}${j.indikation?' · '+esc(j.indikation):''}</div>
-            </div>
-            <span style="font-size:11px;font-weight:600;color:${fieldColor};background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">${fieldLabel}${extraLabel}</span>
-          </div>`;
-        }).join('')}
-      </div>` : `<div style="font-size:12px;color:var(--text3);">Keine Termine</div>`}
-    </div>`;
+    var jobsHtml=jobs.length
+      ?'<div style="display:flex;flex-direction:column;gap:6px;">'+jobs.map(function(j){
+          var fl=j._field==='mogu'?'🔧 MoGu':j._field==='lieferung'?'📦 Lieferung':'✏️ Design';
+          var fc=j._field==='mogu'?'var(--warn)':j._field==='lieferung'?'var(--accent)':j.hochgeladen?'var(--success)':'var(--danger)';
+          var ex=j._field==='design'&&j.hochgeladen?' ✅':'';
+          var lbl=j.auftragsnr||j.patient||j.kunde||'—';
+          return '<div style="background:var(--surface2);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">'
+            +'<div><div style="font-size:13px;font-weight:600;">'+esc(lbl)+(j.kiefer?' <span style="font-size:11px;color:var(--text2);">· '+esc(j.kiefer)+'</span>':'')+'</div>'
+            +'<div style="font-size:11px;color:var(--text2);">'+esc(j.kunde)+(j.indikation?' · '+esc(j.indikation):'')+'</div></div>'
+            +'<span style="font-size:11px;font-weight:600;color:'+fc+';background:rgba(0,0,0,0.2);padding:3px 8px;border-radius:50px;">'+fl+ex+'</span></div>';
+        }).join('')+'</div>'
+      :'<div style="font-size:12px;color:var(--text3);">Keine Termine</div>';
+
+    return '<div class="week-card" style="'+(isT?'border-color:var(--accent);':'')+(isW?'opacity:0.55;':'')+'">'
+      +'<div class="week-head">'
+      +'<div style="display:flex;align-items:center;gap:10px;">'
+      +'<div style="background:'+(isT?'var(--accent)':'var(--surface3)')+';border-radius:8px;padding:4px 10px;text-align:center;">'
+      +'<div style="font-size:10px;color:'+(isT?'rgba(255,255,255,0.8)':'var(--text3)')+';font-weight:600;">'+DN[d.getDay()]+'</div>'
+      +'<div style="font-size:16px;font-weight:700;color:'+(isT?'white':'var(--text)')+';font-family:\'DM Mono\',monospace;">'+d.getDate()+'</div></div>'
+      +'<div><div class="week-label">'+(isT?'📍 Heute · ':'')+ds+'</div>'+(isW?'<div style="font-size:11px;color:var(--text3);">Wochenende</div>':'')+'</div></div>'
+      +'<span class="badge '+(jobs.length>3?'badge-warn':jobs.length>0?'badge-blue':'badge-neutral')+'">'+jobs.length+' Termin'+(jobs.length!==1?'e':'')+'</span>'
+      +'</div>'+jobsHtml+'</div>';
   }).join('');
 }
 
-// ── RENDER STATISTIKEN ──
 function renderStatistiken() {
-  const container = document.getElementById('statistikContent');
-  const alle = auftraege;
-  const aktiv = alle.filter(a => !a.abgeschlossen);
-  const abgeschlossen = alle.filter(a => a.abgeschlossen);
-  const expanded = expandAuftraege(aktiv);
+  var alle=auftraege;
+  var aktiv=alle.filter(function(a){return!a.abgeschlossen;});
+  var abg=alle.filter(function(a){return a.abgeschlossen;});
+  var exp=expandList(aktiv);
+  var total=alle.length||1;
 
-  // Indikation breakdown
-  const indCount = {};
-  alle.forEach(a => {
-    const k = a.indikation || 'Keine Angabe';
-    indCount[k] = (indCount[k] || 0) + 1;
-  });
+  var indC={};
+  alle.forEach(function(a){var k=a.indikation||'Keine Angabe';indC[k]=(indC[k]||0)+1;});
 
-  // Kunde breakdown
-  const kundeCount = {};
-  alle.forEach(a => {
-    const k = a.kunde || 'Unbekannt';
-    kundeCount[k] = (kundeCount[k] || 0) + 1;
-  });
-  const topKunden = Object.entries(kundeCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  var kC={};
+  alle.forEach(function(a){var k=a.kunde||'Unbekannt';kC[k]=(kC[k]||0)+1;});
+  var topK=Object.entries(kC).sort(function(a,b){return b[1]-a[1];}).slice(0,5);
 
-  // Kiefer breakdown
-  const kieferCount = {'OK':0,'UK':0,'OK + UK':0,'—':0};
-  alle.forEach(a => { kieferCount[a.kiefer||'—'] = (kieferCount[a.kiefer||'—']||0)+1; });
+  var kfC={'OK':0,'UK':0,'OK + UK':0,'—':0};
+  alle.forEach(function(a){var k=a.kiefer||'—';kfC[k]=(kfC[k]||0)+1;});
 
-  // Monthly trend (last 6 months by design date)
-  const monthCount = {};
-  const now = new Date();
-  for(let i=5;i>=0;i--) {
-    const d = new Date(now.getFullYear(), now.getMonth()-i, 1);
-    const key = d.toLocaleDateString('de-DE',{month:'short',year:'2-digit'});
-    monthCount[key] = 0;
-  }
-  alle.forEach(a => {
+  var mC={};
+  var now=new Date();
+  for(var i=5;i>=0;i--){var md=new Date(now.getFullYear(),now.getMonth()-i,1);mC[md.toLocaleDateString('de-DE',{month:'short',year:'2-digit'})]=0;}
+  alle.forEach(function(a){
     if(!a.design) return;
-    const d = parseDate(a.design);
-    const key = d.toLocaleDateString('de-DE',{month:'short',year:'2-digit'});
-    if(monthCount.hasOwnProperty(key)) monthCount[key]++;
+    var mk=parseDate(a.design).toLocaleDateString('de-DE',{month:'short',year:'2-digit'});
+    if(mC.hasOwnProperty(mk)) mC[mk]++;
   });
+  var maxM=Math.max.apply(null,Object.values(mC).concat([1]));
 
-  const maxMonth = Math.max(...Object.values(monthCount), 1);
-  const indColors = {'Geschiebe MoGu':'var(--accent)','Klammer MoGu':'var(--success)','Teleskoparbeit':'var(--warn)','Keine Angabe':'var(--text3)'};
+  var iColors={'Geschiebe MoGu':'var(--accent)','Klammer MoGu':'var(--success)','Teleskoparbeit':'var(--warn)','Keine Angabe':'var(--text3)'};
 
-  container.innerHTML = `
-    <!-- Übersicht -->
-    <div class="stats-grid" style="margin-bottom:16px;">
-      <div class="stat-card">
-        <div class="stat-val">${alle.length}</div>
-        <div class="stat-label">Aufträge gesamt</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" style="color:var(--success)">${abgeschlossen.length}</div>
-        <div class="stat-label">Abgeschlossen</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" style="color:var(--accent)">${aktiv.length}</div>
-        <div class="stat-label">Aktiv (Aufträge)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" style="color:var(--warn)">${expanded.length}</div>
-        <div class="stat-label">Aktiv (Gussteile)</div>
-      </div>
-    </div>
-
-    <!-- Indikation -->
-    <div class="week-card" style="margin-bottom:10px;">
-      <div class="week-label" style="margin-bottom:12px;">Aufträge nach Indikation</div>
-      ${Object.entries(indCount).map(([k,v]) => {
-        const pct = Math.round((v/alle.length)*100);
-        const color = indColors[k] || 'var(--text2)';
-        return `<div style="margin-bottom:10px;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-            <span style="font-size:13px;font-weight:500;">${k}</span>
-            <span style="font-size:13px;color:var(--text2);font-family:'DM Mono',monospace;">${v} · ${pct}%</span>
-          </div>
-          <div class="progress-bar"><div style="height:100%;border-radius:3px;background:${color};width:${pct}%;transition:width 0.4s;"></div></div>
-        </div>`;
-      }).join('')}
-    </div>
-
-    <!-- Monatstrend -->
-    <div class="week-card" style="margin-bottom:10px;">
-      <div class="week-label" style="margin-bottom:12px;">Aufträge pro Monat (Design-Datum)</div>
-      <div style="display:flex;align-items:flex-end;gap:6px;height:80px;">
-        ${Object.entries(monthCount).map(([k,v]) => {
-          const h = Math.round((v/maxMonth)*100);
-          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">
-            <span style="font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;">${v||''}</span>
-            <div style="width:100%;background:${v>0?'var(--accent)':'var(--surface3)'};border-radius:4px 4px 0 0;height:${Math.max(h,4)}%;opacity:${v>0?1:0.3};transition:height 0.4s;"></div>
-            <span style="font-size:9px;color:var(--text3);text-align:center;">${k}</span>
-          </div>`;
-        }).join('')}
-      </div>
-    </div>
-
-    <!-- Top Kunden -->
-    <div class="week-card" style="margin-bottom:10px;">
-      <div class="week-label" style="margin-bottom:12px;">Top Kunden</div>
-      ${topKunden.map(([k,v],i) => `
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-          <div style="width:22px;height:22px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text2);">${i+1}</div>
-          <div style="flex:1;font-size:13px;font-weight:500;">${esc(k)}</div>
-          <span class="badge badge-blue">${v} Auftr.</span>
-        </div>`).join('')}
-    </div>
-
-    <!-- Kiefer -->
-    <div class="week-card" style="margin-bottom:10px;">
-      <div class="week-label" style="margin-bottom:12px;">Verteilung Kiefer</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        ${[['OK','var(--accent)'],['UK','var(--success)'],['OK + UK','var(--warn)'],['—','var(--text3)']].map(([k,c]) =>
-          `<div style="background:var(--surface2);border-radius:8px;padding:10px;text-align:center;">
-            <div style="font-size:20px;font-weight:700;color:${c};">${kieferCount[k]||0}</div>
-            <div style="font-size:11px;color:var(--text2);">${k}</div>
-          </div>`
-        ).join('')}
-      </div>
-    </div>
-  `;
+  document.getElementById('statistikContent').innerHTML=
+    '<div class="stats-grid">'
+    +'<div class="stat-card"><div class="stat-val">'+alle.length+'</div><div class="stat-label">Gesamt</div></div>'
+    +'<div class="stat-card"><div class="stat-val" style="color:var(--success)">'+abg.length+'</div><div class="stat-label">Abgeschlossen</div></div>'
+    +'<div class="stat-card"><div class="stat-val" style="color:var(--accent)">'+aktiv.length+'</div><div class="stat-label">Aktiv (Aufträge)</div></div>'
+    +'<div class="stat-card"><div class="stat-val" style="color:var(--warn)">'+exp.length+'</div><div class="stat-label">Aktiv (Gussteile)</div></div>'
+    +'</div>'
+    +'<div class="week-card" style="margin-bottom:10px;">'
+    +'<div class="week-label" style="margin-bottom:12px;">Aufträge nach Indikation</div>'
+    +Object.entries(indC).map(function(e){
+      var pct=Math.round((e[1]/total)*100);
+      var col=iColors[e[0]]||'var(--text2)';
+      return '<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:13px;font-weight:500;">'+esc(e[0])+'</span><span style="font-size:13px;color:var(--text2);">'+e[1]+' · '+pct+'%</span></div>'
+        +'<div class="progress-bar"><div style="height:100%;border-radius:3px;background:'+col+';width:'+pct+'%;"></div></div></div>';
+    }).join('')+'</div>'
+    +'<div class="week-card" style="margin-bottom:10px;">'
+    +'<div class="week-label" style="margin-bottom:12px;">Aufträge pro Monat</div>'
+    +'<div style="display:flex;align-items:flex-end;gap:6px;height:80px;">'
+    +Object.entries(mC).map(function(e){
+      var h=Math.round((e[1]/maxM)*100);
+      return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;">'
+        +'<span style="font-size:11px;color:var(--text2);">'+(e[1]||'')+'</span>'
+        +'<div style="width:100%;background:'+(e[1]>0?'var(--accent)':'var(--surface3)')+';border-radius:4px 4px 0 0;height:'+Math.max(h,4)+'%;opacity:'+(e[1]>0?1:0.3)+';"></div>'
+        +'<span style="font-size:9px;color:var(--text3);text-align:center;">'+e[0]+'</span></div>';
+    }).join('')+'</div></div>'
+    +'<div class="week-card" style="margin-bottom:10px;">'
+    +'<div class="week-label" style="margin-bottom:12px;">Top Kunden</div>'
+    +topK.map(function(e,i){
+      return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'
+        +'<div style="width:22px;height:22px;border-radius:50%;background:var(--surface3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text2);">'+(i+1)+'</div>'
+        +'<div style="flex:1;font-size:13px;font-weight:500;">'+esc(e[0])+'</div>'
+        +'<span class="badge badge-blue">'+e[1]+' Auftr.</span></div>';
+    }).join('')+'</div>'
+    +'<div class="week-card" style="margin-bottom:10px;">'
+    +'<div class="week-label" style="margin-bottom:12px;">Verteilung Kiefer</div>'
+    +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'
+    +[['OK','var(--accent)'],['UK','var(--success)'],['OK + UK','var(--warn)'],['—','var(--text3)']].map(function(e){
+      return '<div style="background:var(--surface2);border-radius:8px;padding:10px;text-align:center;">'
+        +'<div style="font-size:20px;font-weight:700;color:'+e[1]+'">'+(kfC[e[0]]||0)+'</div>'
+        +'<div style="font-size:11px;color:var(--text2);">'+e[0]+'</div></div>';
+    }).join('')+'</div></div>';
 }
 
-
-  const d = parseDate(dateStr);
-  const startOfYear = new Date(d.getFullYear(), 0, 1);
-  const days = Math.floor((d - startOfYear) / 86400000);
-  return Math.ceil((days + startOfYear.getDay() + 1) / 7);
-}
-
-// ── FORM ──
-function resetForm() {
-  editId = null;
-  document.getElementById('formTitle').textContent = 'Neuer Auftrag';
-  ['auftragsnr','kunde','patient','indikation','kiefer','lieferung','mogu','notiz'].forEach(f => {
-    const el = document.getElementById('f-'+f);
-    if(el) el.value = '';
-  });
-}
-
-function editAuftrag(id) {
-  const a = auftraege.find(x => x.id === id);
+function markHochgeladen(id) {
+  var a=auftraege.find(function(x){return x.id===id;});
   if(!a) return;
-  editId = id;
-  document.getElementById('formTitle').textContent = 'Auftrag bearbeiten';
-  document.getElementById('f-auftragsnr').value = a.auftragsnr || '';
-  document.getElementById('f-kunde').value = a.kunde || '';
-  document.getElementById('f-patient').value = a.patient || '';
-  document.getElementById('f-indikation').value = a.indikation || '';
-  document.getElementById('f-kiefer').value = a.kiefer || '';
-  document.getElementById('f-lieferung').value = a.lieferung || '';
-  document.getElementById('f-mogu').value = a.mogu || '';
-  document.getElementById('f-notiz').value = a.notiz || '';
-  showPage('neu');
-}
-
-function saveAuftrag() {
-  const existing = editId ? (auftraege.find(x=>x.id===editId)||{}) : {};
-  const a = {
-    id: editId || Date.now().toString(),
-    auftragsnr: document.getElementById('f-auftragsnr').value.trim(),
-    kunde: document.getElementById('f-kunde').value.trim(),
-    patient: document.getElementById('f-patient').value.trim(),
-    indikation: document.getElementById('f-indikation').value.trim(),
-    kiefer: document.getElementById('f-kiefer').value,
-    design: existing.design || '',
-    hochgeladen: existing.hochgeladen || false,
-    lieferung: document.getElementById('f-lieferung').value,
-    mogu: document.getElementById('f-mogu').value,
-    notiz: document.getElementById('f-notiz').value.trim(),
-    abgeschlossen: existing.abgeschlossen || false,
-  };
-  if(!a.kunde && !a.patient) { alert('Bitte mindestens Kunde oder Patient eintragen.'); return; }
-  if(editId) { const idx = auftraege.findIndex(x=>x.id===editId); auftraege[idx] = a; }
-  else auftraege.push(a);
-  save();
-  editId = null;
-  showPage('auftraege');
-}
-
-function deleteAuftrag(id) {
-  if(!confirm('Auftrag wirklich löschen?')) return;
-  auftraege = auftraege.filter(a => a.id !== id);
+  a.design=todayStr(); a.hochgeladen=true;
   save(); renderAuftraege();
 }
-
-function toggleAbgeschlossen(id) {
-  const a = auftraege.find(x=>x.id===id);
-  if(a) { a.abgeschlossen = !a.abgeschlossen; save(); renderAuftraege(); }
+function toggleFertig(id) {
+  var a=auftraege.find(function(x){return x.id===id;});
+  if(a){a.abgeschlossen=!a.abgeschlossen; save(); renderAuftraege();}
+}
+function delAuftrag(id) {
+  if(!confirm('Auftrag wirklich löschen?')) return;
+  auftraege=auftraege.filter(function(a){return a.id!==id;});
+  save(); renderAuftraege();
+}
+function editAuftrag(id) {
+  var a=auftraege.find(function(x){return x.id===id;});
+  if(!a) return;
+  editId=id;
+  document.getElementById('formTitle').textContent='Auftrag bearbeiten';
+  document.getElementById('f-auftragsnr').value=a.auftragsnr||'';
+  document.getElementById('f-kunde').value=a.kunde||'';
+  document.getElementById('f-patient').value=a.patient||'';
+  document.getElementById('f-indikation').value=a.indikation||'';
+  document.getElementById('f-kiefer').value=a.kiefer||'';
+  document.getElementById('f-lieferung').value=a.lieferung||'';
+  document.getElementById('f-mogu').value=a.mogu||'';
+  document.getElementById('f-notiz').value=a.notiz||'';
+  showPage('neu');
+}
+function resetForm() {
+  editId=null;
+  document.getElementById('formTitle').textContent='Neuer Auftrag';
+  ['auftragsnr','kunde','patient','indikation','kiefer','lieferung','mogu','notiz'].forEach(function(f){
+    var el=document.getElementById('f-'+f); if(el) el.value='';
+  });
+}
+function saveAuftrag() {
+  var ex=editId?(auftraege.find(function(x){return x.id===editId;})||{}):{};
+  var a={
+    id:editId||Date.now().toString(),
+    auftragsnr:document.getElementById('f-auftragsnr').value.trim(),
+    kunde:document.getElementById('f-kunde').value.trim(),
+    patient:document.getElementById('f-patient').value.trim(),
+    indikation:document.getElementById('f-indikation').value,
+    kiefer:document.getElementById('f-kiefer').value,
+    lieferung:document.getElementById('f-lieferung').value,
+    mogu:document.getElementById('f-mogu').value,
+    notiz:document.getElementById('f-notiz').value.trim(),
+    design:ex.design||'', hochgeladen:ex.hochgeladen||false, abgeschlossen:ex.abgeschlossen||false,
+  };
+  if(!a.kunde&&!a.patient){alert('Bitte mindestens Kunde oder Patient eintragen.');return;}
+  if(editId){var idx=auftraege.findIndex(function(x){return x.id===editId;});auftraege[idx]=a;}
+  else auftraege.push(a);
+  save(); editId=null; showPage('auftraege');
 }
 
-function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-// ── INIT ──
 renderAuftraege();
 </script>
-
 </body>
 </html>
